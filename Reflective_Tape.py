@@ -1,9 +1,11 @@
 import numpy as np 
 import cv2 
-
+import math
 
 index = 2 + cv2.CAP_MSMF
-cap = cv2.VideoCapture('http://10.176.34.6:4747/mjpegfeed?640x480')
+cap = cv2.VideoCapture(0)
+#cap = cv2.VideoCapture(4)
+
 
 # Bounding box around reflective tape
 def GreenFinder(img):
@@ -18,30 +20,67 @@ def GreenFinder(img):
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))
     binaryImg = cv2.morphologyEx(binaryImg, cv2.MORPH_OPEN, kernel)
     
+    # Find contours
+    contours, _  = cv2.findContours(binaryImg, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+        
+    # Draw the contour
+    cv2.drawContours(img, contours, 0, (0, 0, 255), 5) 
        
     # Bounding rectangle
     x,y,w,h = cv2.boundingRect(binaryImg)
     img = cv2.rectangle(img, (x,y),(x+w,y+h),(0,0,255),2)
     xpos = x + (w/2)
     ypos = y + (h/2)
-    return(xpos, ypos, img)
+    return(xpos, ypos, img, binaryImg)
+    
 
 # Calculate distance
 def distance(y):
     
-    # Parabola varibles
-    a = 0.000278323
-    b = -0.0107435
-    c = 59.8373
+    # Varibles for distance
+    # Phone camera FOV = 44.835
+    FOV = 44.835
+    targetHeight = 7.583*12
+    camHeight = 7.375 
+    camAngle = 39.345
     
-    # Find distance
-    dist = ((a*y)*(a*y))+b*y+c
+    # Calculate targetAngle
+    targetAngle = -((FOV/480)*y) + (FOV/2)
     
+    # Calculate totalAngle
+    totalAngle = camAngle + targetAngle
+    
+    # Calculate triHeight
+    triHeight = targetHeight - camHeight
+    
+    # Change totalAngle to radians for math.tan function
+    totalAngle = totalAngle*(math.pi/180)
+    
+    # Calculate distance from target
+    dist =  triHeight / math.tan(totalAngle)
+   
     # Convert to feet
-    dist = dist/12
+    dist = dist/12 
     
     # Return distance in feet
-    return(dist)
+    return dist, totalAngle
+    
+    # Old distance finding alg
+    # Parabola varibles
+    #a = 0.000310679
+    #b = -0.031794
+    #c = 62.2457
+    
+    # Find distance
+    #dist = a*(y**2)+(b*y)+c
+    
+    
+    
+    # Round to nearest tenth
+    #dist = round(dist*10)/10
+    
+    
+    
 
 while(True):
     
@@ -51,23 +90,28 @@ while(True):
     
     # Capture frame-by-frame
     red, frame = cap.read()
-    frame = cv2.resize(frame, (640*2, 480*2), interpolation = cv2.INTER_LINEAR)
+    #frame = cv2.resize(frame, (640*2, 480*2), interpolation = cv2.INTER_LINEAR)
     
     # Run the green finder
-    xpos, ypos, frame = GreenFinder(frame)
+    xpos, ypos, frame, binaryImg = GreenFinder(frame)
     
     # Find distance 
-    distFromWall = distance(ypos)
+    distFromWall, triAngle = distance(ypos)
     distFromWall = str(distFromWall)
+    triAngle = str(triAngle)
     
     # Print distance to screen
-    cv2.putText(frame, distFromWall, (10, 40), 1, 2, 255)
+    cv2.putText(frame, distFromWall+"  "+triAngle, (10, 70), 1, 2, 255, 2)
+    
     
     # Testing Functions
     #print(frame.shape)
     #print(gray.shape)
+    if ypos == 240:
+        cv2.rectangle(frame, (30, 30), (610, 450), 200, 5)
     
-    #Display the resulting frame 
+    
+    # Display the resulting frame 
     cv2.imshow('frame',frame)
     #cv2.imshow('binaryImg',binaryImg)
     
