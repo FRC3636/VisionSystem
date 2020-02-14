@@ -10,6 +10,25 @@ cap = cv2.VideoCapture(0)
 # Variables
 ySize = 480
 
+# Find angle of target
+def TargetAngel(x):
+	
+	# Variables
+	horizontalFOV = 51.889
+	
+	# Find degree per pixel
+	pixelDeg = horizontalFOV / ySize
+	
+	# Find degrees to x
+	xAngle = pixelDeg * x
+	
+	# Subtract half of FOV to make it be negative if below 50%
+	targetAngle = xAngle - (horizontalFOV / 2)
+	
+	# Return targetAngle
+	return(targetAngle)
+	
+	
 # Bounding box around reflective tape
 def GreenFinder(img):
     # Convert colorspace
@@ -146,9 +165,12 @@ while(True):
     distFromWall = distance(ypos)
     distFromWall = str(distFromWall)
     
+    # Find angle from target
+    horizontalAngle = TargetAngle(xpos)
+    horizontalAngle = str(horizontalAngle)
     
     # Print distance to screen
-    cv2.putText(frame, distFromWall, (10, 70), 1, 2, 255, 2)
+    cv2.putText(frame, distFromWall + 'ft, ' + horizontalAngle + 'deg', (10, 70), 1, 2, 255, 2)
     
     
     # Testing Functions
