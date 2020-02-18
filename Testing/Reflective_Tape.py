@@ -3,7 +3,7 @@ import cv2
 import math
 
 index = 2 + cv2.CAP_MSMF
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 #cap = cv2.VideoCapture(4)
 
 
