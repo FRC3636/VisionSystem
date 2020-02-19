@@ -34,7 +34,7 @@ class greenFinder:
 
     def update(self, frame):
         self.__img = frame
-        self.__darkImg = adjValues.darkenFrame(self.__img)
+        self.__darkImg = self.__adjValues.darkenFrame()
 
     def locateTarget(self):
         # Convert to binary image

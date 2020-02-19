@@ -12,6 +12,7 @@ class adjustValue:
 
     def update(self, __frame):
         self.__frame = __frame
+        print
 
     def lightenFrame(self):
         # Change to HSV

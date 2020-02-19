@@ -6,7 +6,7 @@ class image:
     __red = 0
     
     def __init__(self):
-        self.__cap = cv2.VideoCapture(0)
+        self.__cap = cv2.VideoCapture()
         self.readImg()
 
     def readImg(self):

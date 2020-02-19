@@ -24,12 +24,13 @@ class targetFinder:
         self.__adjValue = AdjustValue.adjustValue()
 
     def update(self):
+        self.__greenFinder.update(self.__frame)
+        self.__adjValue.update(self.__frame)
         self.__img.readImg()
         self.__frame = self.__img.getFrame()
         self.__distance, self.__angle = self.targetPosition()
         self.displayImg()
-        self.__greenFinder.update(self.__frame)
-        self.__adjValue.update(self.__frame)
+
 
     def targetPosition(self):
         # Darken frame to help green finder
