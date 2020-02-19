@@ -23,8 +23,6 @@ def boundingBox(binaryImg):
     # Return Bounding rectangle
     return(x, y, w, h)
     
-
-
 class greenFinder:
 
     def __init__(self):

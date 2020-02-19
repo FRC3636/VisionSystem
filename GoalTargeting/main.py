@@ -1,29 +1,35 @@
 import cv2
 import TargetFinder
 import Network
+import Image
 
 # Create objects
-targetFinder = TargetFinder.targetFinder()
-cap = cv2.VideoCapture(1)
+#targetFinder = TargetFinder.targetFinder()
+#cap = cv2.VideoCapture(1)
+img = Image.image()
+targetFinder = TargetFinder.targetFinder(img)
 net = Network.network()
 
 while(1):
     
     # Get frame
-    red, frame = cap.read()
+    #red, frame = cap.read()
+    img.readImg()
 
     # Get Key press
     key = cv2.waitKey(1) & 0xFF
     
     # Get the target position
-    distance, angle = targetFinder.targetPosition(frame)
+    #distance, angle = targetFinder.targetPosition(frame)
     
     # Get driverview
-    driverView = targetFinder.driverView(frame)
+    #driverView = targetFinder.driverView(frame)
     
     # Show the driverview
-    cv2.imshow('Driver View', driverView)
-    
+    #cv2.imshow('Driver View', driverView)
+    targetFinder.update()
+
+
     # Send distance and angle to roborio
     net.uploadPosition('Distance', distance)
     net.uploadPosition('Angle', angle)
