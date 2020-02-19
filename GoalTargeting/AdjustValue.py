@@ -5,32 +5,36 @@ import numpy
 
 # Lighten image to send to driver
 class adjustValue:
-        
+    __frame = 0
+
     def __init__(self):
         pass
-        
-    def lightenFrame(self, img):    
+
+    def update(self, __frame):
+        self.__frame = __frame
+
+    def lightenFrame(self):
         # Change to HSV
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        __img = cv2.cvtColor(self.__frame, cv2.COLOR_BGR2HSV)
         
         # Increase value to lighten image
-        img[:,:,2] *= 2
+        __img[:, :, 2] *= 2
         
         # Convert back to BGR
-        img = cv2.cvtColor(img, cv2.COLOR_HSV2BGR)
+        __img = cv2.cvtColor(__img, cv2.COLOR_HSV2BGR)
         
         # Return array
-        return img
+        return __img
         
-    def darkenFrame(self, img):
+    def darkenFrame(self):
         # Change to HSV
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        __img = cv2.cvtColor(self.__frame, cv2.COLOR_BGR2HSV)
         
         # Decrease value to darken image
-        img[:,:,2] -= 50
+        __img[:, :, 2] -= 50
         
         # Convert back to BGR
-        img = cv2.cvtColor(img, cv2.COLOR_HSV2BGR)
+        __img = cv2.cvtColor(__img, cv2.COLOR_HSV2BGR)
         
         # Return array
-        return img
+        return __img

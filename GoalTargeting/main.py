@@ -8,7 +8,7 @@ import Image
 #cap = cv2.VideoCapture(1)
 img = Image.image()
 targetFinder = TargetFinder.targetFinder(img)
-net = Network.network()
+#net = Network.network()
 
 while(1):
     
@@ -31,9 +31,9 @@ while(1):
 
 
     # Send distance and angle to roborio
-    net.uploadPosition('Distance', distance)
-    net.uploadPosition('Angle', angle)
-    
+    #net.uploadPosition('Distance', distance)
+    #net.uploadPosition('Angle', angle)
+
     # Break while loop when key pressed
     if key == 27:
         break
@@ -41,4 +41,4 @@ while(1):
     
 
 # Close windows and release capture
-tgfd.closeWindow()
+img.closeWindows()
