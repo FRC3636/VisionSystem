@@ -1,10 +1,11 @@
 import cv2
 import TargetFinder
-import time
+import Network
 
 # Create objects
-tgfd = TargetFinder.targetFinder()
+targetFinder = TargetFinder.targetFinder()
 cap = cv2.VideoCapture(1)
+net = Network.network()
 
 while(1):
     
@@ -15,13 +16,17 @@ while(1):
     key = cv2.waitKey(1) & 0xFF
     
     # Get the target position
-    distance, angle = tgfd.targetPosition(frame)
+    distance, angle = targetFinder.targetPosition(frame)
     
     # Get driverview
-    driverView = tgfd.driverView(frame)
+    driverView = targetFinder.driverView(frame)
     
     # Show the driverview
     cv2.imshow('Driver View', driverView)
+    
+    # Send distance and angle to roborio
+    net.uploadPosition('Distance', distance)
+    net.uploadPosition('Angle', angle)
     
     # Break while loop when key pressed
     if key == 27:

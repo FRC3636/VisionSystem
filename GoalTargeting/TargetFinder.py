@@ -5,10 +5,10 @@ import TargetAngle
 import AdjustValue
 
 # Create objects
-gnfd = GreenFinder.GreenFinder()
+greenFinder = GreenFinder.greenFinder()
 dist = Distance.distance()
-tgan = TargetAngle.targetAngle()
-adjvl = AdjustValue.adjustValue()
+targetAngle = TargetAngle.targetAngle()
+adjValue = AdjustValue.adjustValue()
 
 
 class targetFinder:
@@ -19,14 +19,14 @@ class targetFinder:
     def targetPosition(self, frame):
         
         # Darken frame to help green finder
-        frame = adjvl.darkenFrame(frame)
+        frame = adjValue.darkenFrame(frame)
         
         # Locate target
-        xpos, ypos = gnfd.locateTarget(frame)
+        xpos, ypos = greenFinder.locateTarget(frame)
         
         # Find distance and angle
         distFromTarget = dist.findDistance(ypos)
-        targetAngle = tgan.findAngle(xpos)
+        targetAngle = targetAngle.findAngle(xpos)
         
         # Return distance and angle
         return(distFromTarget, targetAngle)
@@ -37,10 +37,10 @@ class targetFinder:
         driverView = frame
         
         # Darken frame to help green finder
-        frame = adjvl.darkenFrame(frame)
+        frame = adjValue.darkenFrame(frame)
         
         # Put bounding box on driverView using frame
-        driverView = gnfd.drawBoundingBox(frame, driverView)
+        driverView = greenFinder.drawBoundingBox(frame, driverView)
         
         # Return driverView
         return(driverView)

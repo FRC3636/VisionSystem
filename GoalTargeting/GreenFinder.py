@@ -25,7 +25,7 @@ def boundingBox(binaryImg):
     
 
 
-class GreenFinder:
+class greenFinder:
 
     def __init__(self):
         pass
