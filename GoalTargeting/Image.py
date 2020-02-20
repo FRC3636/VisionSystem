@@ -12,6 +12,7 @@ class image:
     def readImg(self):
         self.__red, self.__frame = self.__cap.read()
 
+
     def displayImg(self):
         cv2.imshow("Driver View", driverView)
 

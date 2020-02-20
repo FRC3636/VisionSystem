@@ -23,7 +23,8 @@ class targetFinder:
         self.__adjValue = AdjustValue.adjustValue()
 
     def update(self):
-        self.__frame = self.__img.readImg()
+        self.__img.readImg()
+        self.__frame = self.__img.getFrame()
         self.__greenFinder.update(self.__frame)
         self.__distance, self.__angle = self.targetPosition()
         self.displayImg()
