@@ -14,7 +14,7 @@ while 1:
 
     # Get frame
     # red, frame = cap.read()
-    img.readImg()
+    #img.readImg()
 
     # Get Key press
     key = cv2.waitKey(1) & 0xFF

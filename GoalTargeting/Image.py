@@ -7,11 +7,10 @@ class image:
     
     def __init__(self):
         self.__cap = cv2.VideoCapture(1)
-        self.readImg()
 
     def readImg(self):
         self.__red, self.__frame = self.__cap.read()
-
+        print(self.__frame)
 
     def displayImg(self):
         cv2.imshow("Driver View", driverView)
