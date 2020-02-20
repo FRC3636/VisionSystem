@@ -15,8 +15,7 @@ class targetFinder:
     __angle = 0
     __frame = 0
 
-    def __init__(self, img):
-        self.__frame = img
+    def __init__(self):
         self.__img = Image.image()
         self.__greenFinder = GreenFinder.greenFinder()
         self.__dist = Distance.distance()
@@ -24,12 +23,11 @@ class targetFinder:
         self.__adjValue = AdjustValue.adjustValue()
 
     def update(self):
+        self.__frame = self.__img.readImg()
         self.__greenFinder.update(self.__frame)
-        self.__adjValue.update(self.__frame)
-        self.__img.readImg()
-        self.__frame = self.__img.getFrame()
         self.__distance, self.__angle = self.targetPosition()
         self.displayImg()
+
 
 
     def targetPosition(self):
@@ -49,7 +47,6 @@ class targetFinder:
         return __distFromTarget, __targetAngle
         
     def driverView(self):
-        
         # Create driverView
         driverView = self.__frame
         

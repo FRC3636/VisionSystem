@@ -6,7 +6,7 @@ class image:
     __red = 0
     
     def __init__(self):
-        self.__cap = cv2.VideoCapture()
+        self.__cap = cv2.VideoCapture(1)
         self.readImg()
 
     def readImg(self):
@@ -16,6 +16,7 @@ class image:
         cv2.imshow("Driver View", driverView)
 
     def getFrame(self):
+        print(self.__frame)
         return self.__frame
 
     def closeWindows(self):

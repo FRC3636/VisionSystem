@@ -25,15 +25,16 @@ def boundingBox(__binaryImg):
 
 
 class greenFinder:
-    __img = 0
+    __frame = 0
     __adjValues = 0
     __darkImg = 0
 
     def __init__(self):
         self.__adjValues = AdjustValue.adjustValue()
 
-    def update(self, frame):
-        self.__img = frame
+    def update(self, __frame):
+        self.__frame = __frame
+        self.__adjValues.update(self.__frame)
         self.__darkImg = self.__adjValues.darkenFrame()
 
     def locateTarget(self):
