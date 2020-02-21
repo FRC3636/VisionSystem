@@ -8,8 +8,8 @@ class distance:
     # Phone camera FOV = 44.835
     __vertFOV = 38.002
     __targetHeight = 7.583 * 12
-    __camHeight = 7.375
-    __camAngle = 38.155
+    __camHeight = 6
+    __camAngle = 40
     __ySize = 480
 
     def __init__(self):

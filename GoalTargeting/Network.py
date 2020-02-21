@@ -1,7 +1,12 @@
 import threading
 from networktables import NetworkTables
 
+
+cond = threading.Condition()
+notified = [False]
+
 def connectionListener(connected, info):
+    #cond = threading.Condition()
     print(info, '; Connected=%s' % connected)
     with cond:
         notified[0] = True
@@ -9,8 +14,6 @@ def connectionListener(connected, info):
 
 class network:
     def __init__(self):
-        cond = threading.Condition()
-        notified = [False]
         NetworkTables.initialize(server='10.36.36.2')
         NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
         with cond:

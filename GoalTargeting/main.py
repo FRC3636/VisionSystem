@@ -16,8 +16,8 @@ while 1:
 
     distance, angle = targetFinder.getPosition()
 
-    network.uploadPosition('Distance', distance)
-    network.uploadPosition('Angle', angle)
+    network.uploadPosition(distance, angle)
+    print(distance, angle)
 
     if key == 27:
         break
