@@ -33,7 +33,7 @@ class adjustValue:
         img = cv2.cvtColor(self.__frame, cv2.COLOR_BGR2HSV)
 
         # Decrease value to darken image
-        img[:, :, 2] -= 50
+        img[:, :, 2] -= 100
         
         # Convert back to BGR
         img = cv2.cvtColor(img, cv2.COLOR_HSV2BGR)

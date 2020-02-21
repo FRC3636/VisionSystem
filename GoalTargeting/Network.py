@@ -13,6 +13,9 @@ def connectionListener(connected, info):
         cond.notify()
 
 class network:
+
+    __sd = 0
+    
     def __init__(self):
         NetworkTables.initialize(server='10.36.36.2')
         NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
@@ -23,9 +26,11 @@ class network:
 
         # Insert your processing code here
         print("Connected!")
+        self.__sd = NetworkTables.getTable('SmartDashboard')
+
 
     def uploadPosition(self, distance, angle):
-        sd = NetworkTables.getTable('SmartDashboard')
+        #sd = NetworkTables.getTable('SmartDashboard')
 
-        sd.putNumber('Distance', distance);
-        sd.putNumber('Angle', angle)
+        self.__sd.putNumber('Distance', distance)
+        self.__sd.putNumber('Angle', angle)

@@ -54,7 +54,7 @@ class targetFinder:
         cv2.imshow("Driver View", driverView)
 
     def getPosition(self):
-        return self.__dist, self.__angle
+        return self.__distance, self.__angle
 
     def exit(self):
         self.__img.closeWindows()
