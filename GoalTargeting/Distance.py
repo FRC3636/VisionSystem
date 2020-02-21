@@ -2,30 +2,28 @@ import numpy as np
 import cv2
 import math
 
-# Variables for distance
-# Phone camera FOV = 44.835
-vertFOV = 38.002
-targetHeight = 7.583*12
-camHeight = 7.375 
-camAngle = 38.155
-ySize = 480    
-
 
 # Distance Class
 class distance:
-    
+    # Phone camera FOV = 44.835
+    __vertFOV = 38.002
+    __targetHeight = 7.583 * 12
+    __camHeight = 7.375
+    __camAngle = 38.155
+    __ySize = 480
+
     def __init__(self):
         pass
 
-    def findDistance(self, ypos):
+    def findDistance(self, yPos):
         # Calculate targetAngle
-        targetAngle = -((vertFOV/ySize)*ypos) + (vertFOV/2)
+        targetAngle = -((self.__vertFOV/self.__ySize)*yPos) + (self.__vertFOV/2)
         
         # Calculate totalAngle
-        totalAngle = camAngle + targetAngle
+        totalAngle = self.__camAngle + targetAngle
         
         # Calculate triHeight
-        triHeight = targetHeight - camHeight
+        triHeight = self.__targetHeight - self.__camHeight
         
         # Change totalAngle to radians for math.tan function
         totalAngle = totalAngle*(math.pi/180)
@@ -33,11 +31,11 @@ class distance:
         # Calculate distance from target
         dist =  triHeight / math.tan(totalAngle)
        
-        # Convert to feet
-        dist = dist/12 
+        # Convert to cm
+        dist *= 2.54
         
         # Round to nearest tenth
         dist = round(dist*10)/10
         
         # Return distance in feet
-        return(dist)
+        return dist

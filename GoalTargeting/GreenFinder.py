@@ -6,14 +6,17 @@ def greenBinary(__img):
     # Convert colorspace
     greenImg = cv2.cvtColor(__img, cv2.COLOR_BGR2HSV)
 
+    rangeLow = (40, 80, 200)
+    rangeHigh = (100, 255, 255)
+
     # Changing to binary image    
-    greenImg = cv2.inRange(greenImg, (40, 80, 200), (100, 255, 255))
+    greenImg = cv2.inRange(greenImg, rangeLow, rangeHigh)
 
     # Cleaning up binary image
-    __kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
-    __greenImg = cv2.morphologyEx(greenImg, cv2.MORPH_OPEN, __kernel)
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    greenImg = cv2.morphologyEx(greenImg, cv2.MORPH_OPEN, kernel)
 
-    return __greenImg
+    return greenImg
 
 
 def boundingBox(__binaryImg):
@@ -28,6 +31,10 @@ class greenFinder:
     __frame = 0
     __adjValues = 0
     __darkImg = 0
+    __x = 0
+    __y = 0
+    __w = 0
+    __h = 0
 
     def __init__(self):
         self.__adjValues = AdjustValue.adjustValue()
@@ -36,30 +43,22 @@ class greenFinder:
         self.__frame = __frame
         self.__adjValues.update(self.__frame)
         self.__darkImg = self.__adjValues.darkenFrame()
+        greenImg = greenBinary(self.__darkImg)
+        self.__x, self.__y, self.__w, self.__h = boundingBox(greenImg)
 
     def locateTarget(self):
-        # Convert to binary image
-        __greenImg = greenBinary(self.__darkImg)
-
-        # Get location
-        x, y, w, h = boundingBox(__greenImg)
 
         # Find middle of bounding box   
-        __xPos = x + int(w / 2)
-        __yPos = y + int(h / 2)
+        __xPos = self.__x + int(self.__w / 2)
+        __yPos = self.__y + int(self.__h / 2)
 
         # Return Target center
         return __xPos, __yPos
 
     def drawBoundingBox(self):
-        # Convert to binary image
-        __greenImg = greenBinary(self.__darkimg)
-
-        # Get location
-        x, y, w, h = boundingBox(__greenImg)
 
         # Draw bounding box
-        self.__img = cv2.rectangle(self.__img, (x, y), (x + w, y + h), (0, 0, 255))
+        self.__frame = cv2.rectangle(self.__frame, (self.__x, self.__y), (self.__x + self.__w, self.__y + self.__h), (0, 0, 255))
 
         # Return the image with bounding box
-        return self.__img
+        return self.__frame

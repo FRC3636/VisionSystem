@@ -5,6 +5,7 @@ import TargetAngle
 import AdjustValue
 import Image
 
+
 class targetFinder:
     __img = 0
     __greenFinder = 0
@@ -22,45 +23,41 @@ class targetFinder:
         self.__targetAngle = TargetAngle.targetAngle()
         self.__adjValue = AdjustValue.adjustValue()
 
+
     def update(self):
         self.__img.readImg()
         self.__frame = self.__img.getFrame()
         self.__greenFinder.update(self.__frame)
         self.__distance, self.__angle = self.targetPosition()
-        self.displayImg()
-
-
 
     def targetPosition(self):
-        # Darken frame to help green finder
-        darkFrame = self.__adjValue.darkenFrame()
 
-        greenFinder.update()
+        self.__greenFinder.update(self.__frame)
 
         # Locate target
-        __xPos, __yPos = self.__greenFinder.locateTarget()
+        xPos, yPos = self.__greenFinder.locateTarget()
         
         # Find distance and angle
-        __distFromTarget = self.__dist.findDistance(__yPos)
-        __targetAngle = self.__targetAngle.findAngle(__xPos)
-        
+        distFromTarget = self.__dist.findDistance(yPos)
+        targetAngle = self.__targetAngle.findAngle(xPos)
+
         # Return distance and angle
-        return __distFromTarget, __targetAngle
+        return distFromTarget, targetAngle
         
     def driverView(self):
         # Create driverView
         driverView = self.__frame
         
-        # Darken frame to help green finder
-        frame = self.__adjValue.darkenFrame()
-        
         # Put bounding box on driverView using frame
         driverView = self.__greenFinder.drawBoundingBox()
-        
-        # Return driverView
-        return driverView
 
-    def displayImg(self):
-        cv2.imshow("Driver View", self.driverView())
+        cv2.imshow("Driver View", driverView)
+
+    def getPosition(self):
+        return self.__dist, self.__angle
+
+    def exit(self):
+        self.__img.closeWindows()
+
 
 
