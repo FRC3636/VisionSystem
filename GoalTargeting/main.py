@@ -3,7 +3,7 @@ import TargetFinder
 import Network
 
 
-network = Network.network()
+#network = Network.network()
 targetFinder = TargetFinder.targetFinder()
 
 while 1:
@@ -16,7 +16,7 @@ while 1:
 
     distance, angle = targetFinder.getPosition()
 
-    network.uploadPosition(distance, angle)
+    #network.uploadPosition(distance, angle)
     print(distance, angle)
 
     if key == 27:

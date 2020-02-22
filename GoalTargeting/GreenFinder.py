@@ -2,12 +2,12 @@ import numpy as np
 import cv2
 import AdjustValue
 
-def greenBinary(__img):
+def greenBinary(img):
     # Convert colorspace
-    greenImg = cv2.cvtColor(__img, cv2.COLOR_BGR2HSV)
+    greenImg = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-    rangeLow = (40, 80, 200)
-    rangeHigh = (100, 255, 255)
+    rangeLow = (20, 20, 110)
+    rangeHigh = (120, 120, 160)
 
     # Changing to binary image    
     greenImg = cv2.inRange(greenImg, rangeLow, rangeHigh)
@@ -15,6 +15,8 @@ def greenBinary(__img):
     # Cleaning up binary image
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
     greenImg = cv2.morphologyEx(greenImg, cv2.MORPH_OPEN, kernel)
+
+    cv2.imshow("color", greenImg)
 
     return greenImg
 

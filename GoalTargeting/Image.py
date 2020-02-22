@@ -21,5 +21,3 @@ class image:
         # Close the windows and release the capture
         self.__cap.release()
         cv2.destroyAllWindows() 
-
-

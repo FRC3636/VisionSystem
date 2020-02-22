@@ -9,10 +9,6 @@ class targetAngle:
 		pass
 
 	def findAngle(self, xpos):
-
-		# Variables
-		horizontalFOV = 51.889
-
 		# Find degree per pixel
 		pixelDeg = horizontalFOV / xSize
 

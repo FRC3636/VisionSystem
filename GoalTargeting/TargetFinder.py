@@ -23,7 +23,6 @@ class targetFinder:
         self.__targetAngle = TargetAngle.targetAngle()
         self.__adjValue = AdjustValue.adjustValue()
 
-
     def update(self):
         self.__img.readImg()
         self.__frame = self.__img.getFrame()

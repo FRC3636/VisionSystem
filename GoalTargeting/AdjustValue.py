@@ -14,14 +14,13 @@ class adjustValue:
     def update(self, __frame):
         self.__frame = __frame
         self.__hsv = cv2.cvtColor(self.__frame, cv2.COLOR_BGR2HSV)
-        
 
     def lightenFrame(self):
         img = self.__hsv
 
         # Increase value to lighten image
         img[:, :, 2] *= 2
-        
+
         # Convert back to BGR
         img = cv2.cvtColor(img, cv2.COLOR_HSV2BGR)
         
