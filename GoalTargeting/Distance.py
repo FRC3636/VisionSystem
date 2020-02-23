@@ -10,7 +10,7 @@ class distance:
     __targetHeight = 7.583 * 12
     __camHeight = 6
     __camAngle = 40
-    __ySize = 480
+    __ySize = 240
 
     def __init__(self):
         pass

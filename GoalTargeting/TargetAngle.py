@@ -1,6 +1,6 @@
 # Variables
 horizontalFOV = 51.889
-xSize = 640
+xSize = 320
 
 # Find angle of target
 class targetAngle:

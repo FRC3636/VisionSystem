@@ -21,7 +21,6 @@ class targetFinder:
         self.__greenFinder = GreenFinder.greenFinder()
         self.__dist = Distance.distance()
         self.__targetAngle = TargetAngle.targetAngle()
-        self.__adjValue = AdjustValue.adjustValue()
 
     def update(self):
         self.__img.readImg()

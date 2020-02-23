@@ -6,17 +6,24 @@ def greenBinary(img):
     # Convert colorspace
     greenImg = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-    rangeLow = (20, 20, 110)
-    rangeHigh = (120, 120, 160)
+    rangeLow = (80, 5, 100)
+    rangeHigh = (105, 150, 255)
+
+    # Blur to help with converting
+    greenImg = cv2.GaussianBlur(greenImg, (3, 3), cv2.BORDER_DEFAULT)
 
     # Changing to binary image    
     greenImg = cv2.inRange(greenImg, rangeLow, rangeHigh)
 
+
     # Cleaning up binary image
+    
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
     greenImg = cv2.morphologyEx(greenImg, cv2.MORPH_OPEN, kernel)
+    
 
-    cv2.imshow("color", greenImg)
+    
+    #cv2.imshow("color", greenImg)
 
     return greenImg
 
@@ -39,13 +46,14 @@ class greenFinder:
     __h = 0
 
     def __init__(self):
-        self.__adjValues = AdjustValue.adjustValue()
-
+        #self.__adjValues = AdjustValue.adjustValue()
+        pass
+    
     def update(self, __frame):
         self.__frame = __frame
-        self.__adjValues.update(self.__frame)
-        self.__darkImg = self.__adjValues.darkenFrame()
-        greenImg = greenBinary(self.__darkImg)
+        #self.__adjValues.update(self.__frame)
+        #self.__darkImg = self.__adjValues.darkenFrame()
+        greenImg = greenBinary(self.__frame)
         self.__x, self.__y, self.__w, self.__h = boundingBox(greenImg)
 
     def locateTarget(self):
