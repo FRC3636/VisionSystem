@@ -6,8 +6,8 @@ def greenBinary(img):
     # Convert colorspace
     greenImg = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-    rangeLow = (80, 5, 100)
-    rangeHigh = (105, 150, 255)
+    rangeLow = (70, 170, 100)
+    rangeHigh = (90, 255, 255)
 
     # Blur to help with converting
     greenImg = cv2.GaussianBlur(greenImg, (3, 3), cv2.BORDER_DEFAULT)
@@ -16,14 +16,11 @@ def greenBinary(img):
     greenImg = cv2.inRange(greenImg, rangeLow, rangeHigh)
 
 
-    # Cleaning up binary image
-    
-    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    # Cleaning up binary image 
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
     greenImg = cv2.morphologyEx(greenImg, cv2.MORPH_OPEN, kernel)
     
-
-    
-    #cv2.imshow("color", greenImg)
+    cv2.imshow("color", greenImg)
 
     return greenImg
 
