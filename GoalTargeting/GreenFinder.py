@@ -20,7 +20,7 @@ def greenBinary(img):
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
     greenImg = cv2.morphologyEx(greenImg, cv2.MORPH_OPEN, kernel)
     
-    cv2.imshow("color", greenImg)
+    #cv2.imshow("color", greenImg)
 
     return greenImg
 

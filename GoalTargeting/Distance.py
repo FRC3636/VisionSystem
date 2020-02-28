@@ -7,8 +7,8 @@ import math
 class distance:
     # Phone camera FOV = 44.835
     __vertFOV = 38.002
-    __targetHeight = 7.583 * 12
-    __camHeight = 6
+    __targetHeight = 230.5 
+    __camHeight = 20
     __camAngle = 40
     __ySize = 240
 
@@ -29,11 +29,8 @@ class distance:
         totalAngle = totalAngle*(math.pi/180)
         
         # Calculate distance from target
-        dist =  triHeight / math.tan(totalAngle)
-       
-        # Convert to cm
-        dist *= 2.54
-        
+        dist = triHeight / math.tan(totalAngle)
+
         # Round to nearest tenth
         dist = round(dist*10)/10
         

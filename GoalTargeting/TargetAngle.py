@@ -9,6 +9,10 @@ class targetAngle:
         pass
 
     def findAngle(self, xpos):
+        # Check to make sure it is finding a Goal
+        if(xpos == 0):
+            return(0)
+
         # Find degree per pixel
         pixelDeg = horizontalFOV / xSize
 
@@ -20,7 +24,8 @@ class targetAngle:
                 
         # Round to nearest tenth
         targetAngle = int(targetAngle * 10) / 10
- 
+        
+
         # Return targetAngle
         return(targetAngle)
     
